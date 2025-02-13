@@ -14,7 +14,6 @@ public class TicketSystem {
     }
 
     public void createEvent() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Event Name :");
         String name = scanner.nextLine();
         System.out.println("Number of Regular Ticket :");
