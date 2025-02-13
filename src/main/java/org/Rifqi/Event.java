@@ -11,10 +11,10 @@ public class Event {
         this.name = name;
         this.tickets = new ArrayList<>();
         for (int i = 0; i < regularTicketCount; i++) {
-            tickets.add(new Ticket(this, regularPrice, "Regular"));
+            tickets.add(new RegularTicket(this, regularPrice));
         }
         for (int i = 0; i < vipTicketCount; i++) {
-            tickets.add(new Ticket(this, vipPrice, "VIP"));
+            tickets.add(new VipTicket(this, vipPrice));
         }
     }
 
@@ -33,6 +33,15 @@ public class Event {
                 System.out.println("- " + ticket.getType() + " Ticket: $" + ticket.getPrice());
             }
         }
+    }
+
+    public Ticket getAvailableTicket(String type) {
+        for (Ticket ticket : tickets) {
+            if (!ticket.isBooked() && ticket.getType().equalsIgnoreCase(type)) {
+                return ticket;
+            }
+        }
+        return null;
     }
 
     @Override

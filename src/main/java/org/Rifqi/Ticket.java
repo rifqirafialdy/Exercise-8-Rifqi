@@ -4,12 +4,13 @@ import java.util.UUID;
 
 class Ticket implements Ticketable {
     private final UUID ticketId;
-    private static int totalSale;
     private final float price;
     private final String type;
-    private final boolean isBooked;
-    private static final int totalTicketSold = 0;
+    private boolean isBooked;
+    private static int totalTicketSold = 0;
     private final Event event;
+    private String buyerName;
+    protected String benefit;
 
     public Ticket(Event event, float price, String type) {
         this.ticketId = UUID.randomUUID();
@@ -17,6 +18,8 @@ class Ticket implements Ticketable {
         this.type = type;
         this.isBooked = false;
         this.event = event;
+        this.buyerName = "";
+        this.benefit = "";
     }
 
     public UUID getTicketId() {
@@ -35,10 +38,24 @@ class Ticket implements Ticketable {
         return isBooked;
     }
 
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public boolean bookTicket(String buyerName) {
+        if (!isBooked) {
+            this.isBooked = true;
+            this.buyerName = buyerName;
+            totalTicketSold++;
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void printTicketDetails() {
-        System.out.println("Ticket ID: " + ticketId + " || Type: " + type + " || Price: $" + price + " || Booking Status : " + isBooked);
+        System.out.println("Event : " + event.getName() + "|| Ticket ID: " + ticketId + " || Type: " + type + " || Price: $" + price + "|| Name : " + buyerName + " || Booking Status : " + (isBooked ? "Complete" : "Not Booked") + "|| Benefit :" + benefit);
     }
 
 }
